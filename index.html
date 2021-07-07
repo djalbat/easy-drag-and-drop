@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Easy Drag and Drop example</title>
+    <meta charset="utf-8" />
+    <style>
+
+      *,
+      *::after,
+      *::before {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 10px;
+        font-family: Menlo, Verdana, sans-serif;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <script src="example.js"> </script>
+
+    <script>
+
+      var xmlHttpRequest = new XMLHttpRequest();
+
+      xmlHttpRequest.onreadystatechange = function() {
+        if (xmlHttpRequest.readyState == 4) {
+          if (xmlHttpRequest.status == 200) {
+            location.reload();
+          }
+        }
+      };
+
+      xmlHttpRequest.open("GET", "/live-reload");
+
+      xmlHttpRequest.send();
+
+    </script>
+
+  </body>
+</html>
