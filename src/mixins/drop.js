@@ -78,13 +78,13 @@ function disableDrop() {
   this.offMouseOver(mouseOverHandler, this);
 }
 
-function callHandlers(eventType, dragElement) {
+function callHandlers(eventType, ...remainingArguments) {
   const eventListeners = this.findEventListeners(eventType);
 
   eventListeners.forEach((eventListener) => {
     const { handler, element } = eventListener;
 
-    handler.call(element, dragElement, element);
+    handler.call(element, ...remainingArguments, element);
   });
 }
 

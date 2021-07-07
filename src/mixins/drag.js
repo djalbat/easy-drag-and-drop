@@ -178,13 +178,13 @@ function drag(mouseTop, mouseLeft) {
   this.callHandlers(eventType, relativeMouseTop, relativeMouseLeft);
 }
 
-function callHandlers(eventType, relativeMouseTop, relativeMouseLeft) {
+function callHandlers(eventType, ...remainingArguments) {
   const eventListeners = this.findEventListeners(eventType);
 
   eventListeners.forEach((eventListener) => {
     const { handler, element } = eventListener;
 
-    handler.call(element, relativeMouseTop, relativeMouseLeft, element);
+    handler.call(element, ...remainingArguments, element);
   });
 }
 
