@@ -15,4 +15,3 @@ export default class DropElement extends Element {
 }
 
 Object.assign(DropElement.prototype, dropMixins);
-
