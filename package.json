@@ -10,7 +10,8 @@
     "url": "https://github.com/djalbat/easy-drag-and-drop"
   },
   "dependencies": {
-    "easy": "^12.0.8"
+    "easy": "^12.0.8",
+    "easy-with-style": "^3.0.34"
   },
   "devDependencies": {
     "@swc/core": "^1.2.50",
