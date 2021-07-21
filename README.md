@@ -29,7 +29,7 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
     npm install
 
-## Installation
+## Usage
 
 The `DragElement` and `DropElement` classes can be subclassed directly in order to create your own elements. The listing for the former is given here to highlight the styles that come with it and are necessary in order for it to drag properly:
 
@@ -67,7 +67,7 @@ export default withStyle(DragElement)`
 
 Note the enabling and disabling of the drag functionality in the `didMount()` and `willUnmount()` methods, respectively. The `DropElement` class is similar, but needs no additional styling. If you choose to make use of the mixins rather than subclassing these classes, you must enalbe and disable the functionality in similar fashion.
 
-In the following listing the drop mixins have been used to add the requisite functionality an element:
+In the following listing the drop mixins have been used to add drop functionality an element:
 
 ```
 class DropDiv extends Element {
@@ -95,9 +95,9 @@ class DropDiv extends Element {
 }
 ```
 
-Note that the drag element that has been dropped onto the drop element is passed as the first argument to the drop handler for convenience. Note also that the usual `evnet` argument for handlers is missing because this is a custom event, not a standard DOM event.
+Note that the drag element that has been dropped onto the drop element is passed as the first argument to the drop handler for convenience. Note also that the usual `event` argument is missing because this is a custom event, not a standard DOM event.
 
-If you want to add double click functionality to a drag element then you must tell it to stop waiting to drag in the double click event handler. Drag elements wait a small amount of time precisely in order to support this functionality:
+If you want to add double click functionality to drag elements then you must tell them to stop waiting to drag in the double click event handler. Drag elements wait a small amount of time precisely in order to support this functionality:
 
 ```
 class DragDiv extends Element {
@@ -109,11 +109,9 @@ class DragDiv extends Element {
   
   ...
 }
-
-Object.assign(DragDiv.prototype, dragMixins);
 ```
 
-Finally, note that dropping a drag element onto a drop element results in no changes to either by default. You must add the required behaviour. In the examples, for example, and in the listings above, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, as they have several event handlers. You are better off removing and re-creating them.
+Finally, note that dropping a drag element onto a drop element results in no changes to either by default and you must add the required behaviour. In the examples, for example, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, by the way, as they have several event handlers. You are better off removing and re-creating them.
 
 ## Building
 
