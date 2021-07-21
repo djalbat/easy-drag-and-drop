@@ -7,12 +7,24 @@ import { dragMixins } from "../../index"; ///
 
 import style from "../style";
 
+import { DBLCLICK } from "../constants";
+
 class DragDiv extends Element {
+  doubleClickHandler(event, element) {
+    console.log("double click!")
+
+    this.stopWaitingToDrag();
+  }
+
   didMount() {
     this.enableDrag();
+
+    this.on(DBLCLICK, this.doubleClickHandler, this);
   }
 
   willUnmount() {
+    this.off(DBLCLICK, this.doubleClickHandler, this);
+
     this.disableDrag();
   }
 
