@@ -6,11 +6,7 @@ Two elements are exported, one for dragging and one for dropping. Two collection
 
 ### JSX support
 
-There is now support for JSX in the form of [Juxtapose](https://github.com/djalbat/Juxtapose). So although you will always be able to call constructors directly if you wish, creating Easy elements by way of JSX is *highly recommended*. The contents of this readme file will stay as a reference, however a much better place to start from now on is the online documentation for Juxtapose. The section dealing directly with this project is here:
-
-**[Juxtapose online documentation - Easy-DragAndDrop](http://juxtapose.info/#easy-draganddrop)**
-
-From there you can easily navigate to get an overview of Juxtapose.
+There is now support for JSX in the form of [Juxtapose](https://github.com/djalbat/Juxtapose). What this means is that Easy *will* now help you with the architecture of your large application. So although Easy elements will continue to work standalone, their use with Juxtapose is recommended.
 
 ### Related projects
 
