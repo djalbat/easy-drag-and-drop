@@ -2,7 +2,7 @@
 
 Drag and drop functionality for Easy elements.
 
-Coming soon...
+Two elements are exported, one for dragging and one for dropping. Two collections of mixins are also exported, which you can assign directly to the class prototypes of your elements if you prefer.
 
 ### JSX support
 
@@ -16,6 +16,7 @@ From there you can easily navigate to get an overview of Juxtapose.
 
 - [Easy](https://github.com/djalbat/easy) Elements that abstract away from the DOM.
 - [Easy Layout](https://github.com/djalbat/easy-layout) Layout elements that work with CSS flexbox.
+- [Easy File System](https://github.com/djalbat/easy-file-system) A file system explorer and a rubbish bin.
 - [Easy RichTextarea](https://github.com/djalbat/easy-richrextarea) A textarea element that handles and hands off events well.
 
 ## Installation
