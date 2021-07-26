@@ -99,6 +99,30 @@ Note that the drag element that has been dropped onto the drop element is passed
 
 Finally, note that dropping a drag element onto a drop element results in no changes to either by default and you must add the required behaviour. In the examples, for example, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, by the way, as they have several event handlers. You are better off removing and re-creating them.
 
+## Styles
+
+Styles are by way of - [Easy with Style](https://github.com/djalbat/easy-with-style). A small amount of default styling must be applied to draggable elements in order to make them work. For example:
+
+```
+class DragDiv extends Element {
+  ...
+}
+
+Object.assign(DragDiv.prototype, dragMixins);
+
+export default withStyle(DragDiv)`
+
+  .dragging {
+    z-index: 1;
+    position: fixed;
+    pointer-events: none;
+  }
+
+`;
+```
+
+The `z-index` and `position` styles really must be set. The `pointer-events` style is optional but recommended. It results in the text in draggable elements being un-selectable, but this is usually the preferred behaviour.
+
 ## Building
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:

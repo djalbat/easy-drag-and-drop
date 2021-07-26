@@ -1,7 +1,7 @@
 {
   "name": "@djalbat/easy-drag-and-drop",
   "author": "James Smith",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/easy-drag-and-drop",
   "description": "Drag and drop functionality for Easy elements.",
