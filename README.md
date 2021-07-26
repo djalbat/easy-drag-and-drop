@@ -101,7 +101,7 @@ Finally, note that dropping a drag element onto a drop element results in no cha
 
 ## Styles
 
-Styles are by way of - [Easy with Style](https://github.com/djalbat/easy-with-style). A small amount of default styling must be applied to draggable elements in order to make them work. For example:
+Styles are by way of [Easy with Style](https://github.com/djalbat/easy-with-style). A small amount of styling must be applied to draggable elements in order to make them work. For example:
 
 ```
 class DragDiv extends Element {
@@ -111,6 +111,8 @@ class DragDiv extends Element {
 Object.assign(DragDiv.prototype, dragMixins);
 
 export default withStyle(DragDiv)`
+
+  ... 
 
   .dragging {
     z-index: 1;
