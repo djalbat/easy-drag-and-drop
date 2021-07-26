@@ -97,20 +97,6 @@ class DropDiv extends Element {
 
 Note that the drag element that has been dropped onto the drop element is passed as the first argument to the drop handler for convenience. Note also that the usual `event` argument is missing because this is a custom event, not a standard DOM event.
 
-If you want to add double click functionality to drag elements then you must tell them to stop waiting to drag in the double click event handler. Drag elements wait a small amount of time precisely in order to support this functionality:
-
-```
-class DragDiv extends Element {
-  doubleClickHandler(event, element) {
-    console.log("double click!")
-
-    this.stopWaitingToDrag();
-  }
-  
-  ...
-}
-```
-
 Finally, note that dropping a drag element onto a drop element results in no changes to either by default and you must add the required behaviour. In the examples, for example, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, by the way, as they have several event handlers. You are better off removing and re-creating them.
 
 ## Building

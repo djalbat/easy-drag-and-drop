@@ -12,8 +12,6 @@ import { DBLCLICK } from "../constants";
 class DragDiv extends Element {
   doubleClickHandler(event, element) {
     console.log("double click!")
-
-    this.stopWaitingToDrag();
   }
 
   didMount() {
