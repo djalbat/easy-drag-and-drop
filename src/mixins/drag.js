@@ -56,11 +56,21 @@ function offStartDrag(startDragHandler, element) {
 }
 
 function enableDrag() {
-  const timeout = null,
+  const { onDrag, onStopDrag, onStartDrag } = this.properties,
+        dragHandler = onDrag, ///
+        stopDragHandler = onStopDrag, ///
+        startDragHandler = onStartDrag, ///
+        timeout = null,
         topOffset = null,
         leftOffset = null,
         startMouseTop = null,
         startMouseLeft = null;
+
+  dragHandler && this.onDrag(dragHandler);
+  stopDragHandler && this.onStopDrag(stopDragHandler);
+  startDragHandler && this.onStartDrag(startDragHandler);
+
+  this.onMouseDown(mouseDownHandler, this);
 
   this.setState({
     timeout,
@@ -69,11 +79,18 @@ function enableDrag() {
     startMouseTop,
     startMouseLeft
   });
-
-  this.onMouseDown(mouseDownHandler, this);
 }
 
 function disableDrag() {
+  const { onDrag, onStopDrag, onStartDrag } = this.properties,
+        dragHandler = onDrag, ///
+        stopDragHandler = onStopDrag, ///
+        startDragHandler = onStartDrag; ///
+
+  dragHandler && this.offDrag(dragHandler);
+  stopDragHandler && this.offStopDrag(stopDragHandler);
+  startDragHandler && this.offStartDrag(startDragHandler);
+
   this.offMouseDown(mouseDownHandler, this);
 }
 

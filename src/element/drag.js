@@ -14,6 +14,12 @@ class DragElement extends Element {
   willUnmount() {
     this.disableDrag();
   }
+
+  static ignoredProperties = [
+    "onDrag",
+    "onStartDrag",
+    "offStartDrag"
+  ];
 }
 
 Object.assign(DragElement.prototype, dragMixins);

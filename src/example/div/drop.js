@@ -29,11 +29,11 @@ class DropDiv extends Element {
   }
 
   willUnmount() {
+    this.disableDrop();
+
     this.offDrop(this.dropHandler, this);
     this.offDragOut(this.dragOutHandler, this);
     this.offDragOver(this.dragOverHandler, this);
-
-    this.disableDrop();
   }
 
   childElements() {

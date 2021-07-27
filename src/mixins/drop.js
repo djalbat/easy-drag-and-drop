@@ -69,11 +69,29 @@ function offDragOver(dragOverHandler, element) {
 }
 
 function enableDrop() {
+  const { onDrop, onDragOut, onDragOver } = this.properties,
+        dropHandler = onDrop, ///
+        dragOutHandler = onDragOut, ///
+        dragOverHandler = onDragOver; ///
+
+  dropHandler && this.onDrop(dropHandler);
+  dragOutHandler && this.onDragOut(dragOutHandler);
+  dragOverHandler && this.onDragOver(dragOverHandler);
+
   this.onMouseOut(mouseOutHandler, this);
   this.onMouseOver(mouseOverHandler, this);
 }
 
 function disableDrop() {
+  const { onDrop, onDragOut, onDragOver } = this.properties,
+        dropHandler = onDrop, ///
+        dragOutHandler = onDragOut, ///
+        dragOverHandler = onDragOver; ///
+
+  dropHandler && this.offDrop(dropHandler);
+  dragOutHandler && this.offDragOut(dragOutHandler);
+  dragOverHandler && this.offDragOver(dragOverHandler);
+
   this.offMouseOut(mouseOutHandler, this);
   this.offMouseOver(mouseOverHandler, this);
 }

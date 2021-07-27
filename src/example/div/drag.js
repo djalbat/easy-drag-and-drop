@@ -2,14 +2,13 @@
 
 import withStyle from "easy-with-style";
 
-import { Element } from "easy";
-import { dragMixins } from "../../index"; ///
+import { dragMixins, DragElement } from "../../index"; ///
 
 import style from "../style";
 
 import { DBLCLICK } from "../constants";
 
-class DragDiv extends Element {
+class DragDiv extends DragElement {
   doubleClickHandler(event, element) {
     console.log("double click!")
   }

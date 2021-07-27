@@ -67,6 +67,8 @@ export default withStyle(DragElement)`
 
 Note the enabling and disabling of the drag functionality in the `didMount()` and `willUnmount()` methods, respectively. The `DropElement` class is similar, but needs no additional styling. If you choose to make use of the mixins rather than subclassing these classes, you must enalbe and disable the functionality in similar fashion.
 
+Note that, as well as calling the requisite enable and disable methods, the `DragElement` and `DropElement` classes also have static `ignoredProperties` fields for the corresponding JSX attributes such as `onDrag` and the like. In fact you can also make use of these attributes in classes that do not extend these classes but nonetheless invoke the enable and disbale methods, because the functionality is implemented in these methods, however you will need to ignore the corresponding JSX attributes explicitly.
+
 In the following listing the drop mixins have been used to add drop functionality an element:
 
 ```

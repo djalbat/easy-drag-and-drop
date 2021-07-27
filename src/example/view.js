@@ -12,7 +12,7 @@ class View extends Element {
     return ([
 
       <DropDiv/>,
-      <DragDiv/>
+      <DragDiv onDrag={dragHandler} onStopDrag={stopDragHandler} onStartDrag={startDragHandler} />
 
     ]);
   }
@@ -29,3 +29,15 @@ export default withStyle(View)`
   padding: 10rem;
       
 `;
+
+function dragHandler(event, element) {
+  console.log("drag")
+}
+
+function stopDragHandler(event, element) {
+  console.log("stop drag")
+}
+
+function startDragHandler(event, element) {
+  console.log("start drag")
+}
