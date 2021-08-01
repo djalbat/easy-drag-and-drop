@@ -1,12 +1,10 @@
 "use strict";
 
+import "./preamble";
+
 import withStyle from "easy-with-style";  ///
 
-import { Body, React, window } from "easy";
-
-window.assign({
-  React
-});
+import { Body } from "easy";
 
 import View from "./example/view";
 
