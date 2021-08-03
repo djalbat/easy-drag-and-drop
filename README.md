@@ -12,6 +12,7 @@ There is now support for JSX in the form of [Juxtapose](https://github.com/djalb
 
 - [Easy](https://github.com/djalbat/easy) Elements that abstract away from the DOM.
 - [Easy Layout](https://github.com/djalbat/easy-layout) Layout elements that work with CSS flexbox.
+- [Easy Accordion](https://github.com/djalbat/easy-accordion) A responsive accordion and associated navigation.
 - [Easy File System](https://github.com/djalbat/easy-file-system) A file system explorer and a rubbish bin.
 - [Easy RichTextarea](https://github.com/djalbat/easy-richtextarea) A textarea element that handles and hands off events well.
 
@@ -28,6 +29,24 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 ...and then install the dependencies with npm from within the project's topmost directory:
 
     npm install
+
+## Example
+
+There is a small development server that can be run from within the project's directory with the following command:
+
+    npm start
+
+The example will then be available at the following URL:
+
+http://localhost:8888
+
+The source for the example can be found in the `src/example.js` file and corresponding`src/example` folder. You are encouraged to try the example whilst reading what follows. You can rebuild it on the fly with the following command:
+
+    npm run watch-debug
+
+The development server will reload the page whenever you make changes.
+
+One last thing to bear in mind is that this package is included by way of a relative rather than a package import. If you are importing it into your own application, however, you should use the standard package import.
 
 ## Usage
 
@@ -67,6 +86,8 @@ export default withStyle(DragElement)`
 
 Note the enabling and disabling of the drag functionality in the `didMount()` and `willUnmount()` methods, respectively. The `DropElement` class is similar, but needs no additional styling. If you choose to make use of the mixins rather than subclassing these classes, you must enalbe and disable the functionality in similar fashion.
 
+Note that, as well as calling the requisite enable and disable methods, the `DragElement` and `DropElement` classes also have static `ignoredProperties` fields for the corresponding JSX attributes such as `onDrag` and the like. In fact you can also make use of these attributes in classes that do not extend these classes but nonetheless invoke the enable and disbale methods, because the functionality is implemented in these methods, however you will need to ignore the corresponding JSX attributes explicitly.
+
 In the following listing the drop mixins have been used to add drop functionality an element:
 
 ```
@@ -97,21 +118,33 @@ class DropDiv extends Element {
 
 Note that the drag element that has been dropped onto the drop element is passed as the first argument to the drop handler for convenience. Note also that the usual `event` argument is missing because this is a custom event, not a standard DOM event.
 
-If you want to add double click functionality to drag elements then you must tell them to stop waiting to drag in the double click event handler. Drag elements wait a small amount of time precisely in order to support this functionality:
+Finally, note that dropping a drag element onto a drop element results in no changes to either by default and you must add the required behaviour. In the examples, for example, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, by the way, as they have several event handlers. You are better off removing and re-creating them.
+
+## Styles
+
+Styles are by way of [Easy with Style](https://github.com/djalbat/easy-with-style). A small amount of styling must be applied to draggable elements in order to make them work. For example:
 
 ```
 class DragDiv extends Element {
-  doubleClickHandler(event, element) {
-    console.log("double click!")
-
-    this.stopWaitingToDrag();
-  }
-  
   ...
 }
+
+Object.assign(DragDiv.prototype, dragMixins);
+
+export default withStyle(DragDiv)`
+
+  ... 
+
+  .dragging {
+    z-index: 1;
+    position: fixed;
+    pointer-events: none;
+  }
+
+`;
 ```
 
-Finally, note that dropping a drag element onto a drop element results in no changes to either by default and you must add the required behaviour. In the examples, for example, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, by the way, as they have several event handlers. You are better off removing and re-creating them.
+The `z-index` and `position` styles really must be set. The `pointer-events` style is optional but recommended. It results in the text in draggable elements being un-selectable, but this is usually the preferred behaviour.
 
 ## Building
 

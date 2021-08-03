@@ -56,11 +56,21 @@ function offStartDrag(startDragHandler, element) {
 }
 
 function enableDrag() {
-  const timeout = null,
+  const { onDrag, onStopDrag, onStartDrag } = this.properties,
+        dragHandler = onDrag, ///
+        stopDragHandler = onStopDrag, ///
+        startDragHandler = onStartDrag, ///
+        timeout = null,
         topOffset = null,
         leftOffset = null,
         startMouseTop = null,
         startMouseLeft = null;
+
+  dragHandler && this.onDrag(dragHandler);
+  stopDragHandler && this.onStopDrag(stopDragHandler);
+  startDragHandler && this.onStartDrag(startDragHandler);
+
+  this.onMouseDown(mouseDownHandler, this);
 
   this.setState({
     timeout,
@@ -69,11 +79,18 @@ function enableDrag() {
     startMouseTop,
     startMouseLeft
   });
-
-  this.onMouseDown(mouseDownHandler, this);
 }
 
 function disableDrag() {
+  const { onDrag, onStopDrag, onStartDrag } = this.properties,
+        dragHandler = onDrag, ///
+        stopDragHandler = onStopDrag, ///
+        startDragHandler = onStartDrag; ///
+
+  dragHandler && this.offDrag(dragHandler);
+  stopDragHandler && this.offStopDrag(stopDragHandler);
+  startDragHandler && this.offStartDrag(startDragHandler);
+
   this.offMouseDown(mouseDownHandler, this);
 }
 
@@ -122,11 +139,7 @@ function startDrag(mouseTop, mouseLeft) {
         startMouseTop = mouseTop, ///
         startMouseLeft = mouseLeft; ///
 
-  window.on(BLUR, mouseUpHandler, this); ///
-
   window.onKeyDown(keyDownHandler, this);
-
-  window.onMouseUp(mouseUpHandler, this);
 
   window.onMouseMove(mouseMoveHandler, this);
 
@@ -154,11 +167,7 @@ function stopDrag() {
         eventType = STOP_DRAG,
         dragElement = null;
 
-  window.off(BLUR, mouseUpHandler, this);  ///
-
   window.offKeyDown(keyDownHandler, this);
-
-  window.offMouseUp(mouseUpHandler, this);
 
   window.offMouseMove(mouseMoveHandler, this);
 
@@ -333,6 +342,10 @@ function mouseUpHandler(event, element) {
       this.stopWaitingToDrag();
 
   event.stopPropagation();
+
+  window.off(BLUR, mouseUpHandler, this);  ///
+
+  window.offMouseUp(mouseUpHandler, this);
 }
 
 function mouseDownHandler(event, element) {
@@ -350,6 +363,10 @@ function mouseDownHandler(event, element) {
   }
 
   event.stopPropagation();
+
+  window.on(BLUR, mouseUpHandler, this); ///
+
+  window.onMouseUp(mouseUpHandler, this);
 }
 
 function mouseMoveHandler(event, element) {
