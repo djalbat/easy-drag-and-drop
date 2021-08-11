@@ -3,7 +3,8 @@
 import { window, constants } from "easy";
 
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
-import { BLUR, DRAG, STOP_DRAG, START_DRAG, ESCAPE_KEYCODE, START_DRAGGING_DELAY } from "../constants";
+import { ESCAPE_KEYCODE, START_DRAGGING_DELAY } from "../constants";
+import { BLUR_EVENT_TYPE, DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "../eventTypes";
 
 const dragElement = null;
 
@@ -14,42 +15,42 @@ Object.assign(globalThis, {
 const { LEFT_MOUSE_BUTTON } = constants;
 
 function onDrag(dragHandler, element) {
-  const eventType = DRAG,
+  const eventType = DRAG_EVENT_TYPE,
         handler = dragHandler;  ///
 
   this.addEventListener(eventType, handler, element);
 }
 
 function offDrag(dragHandler, element) {
-  const eventType = DRAG,
+  const eventType = DRAG_EVENT_TYPE,
         handler = dragHandler;  ///
 
   this.removeEventListener(eventType, handler, element);
 }
 
 function onStopDrag(stopDragHandler, element) {
-  const eventType = STOP_DRAG,
+  const eventType = STOP_DRAG_EVENT_TYPE,
         handler = stopDragHandler;  ///
 
   this.addEventListener(eventType, handler, element);
 }
 
 function offStopDrag(stopDragHandler, element) {
-  const eventType = STOP_DRAG,
+  const eventType = STOP_DRAG_EVENT_TYPE,
         handler = stopDragHandler;  ///
 
   this.removeEventListener(eventType, handler, element);
 }
 
 function onStartDrag(startDragHandler, element) {
-  const eventType = START_DRAG,
+  const eventType = START_DRAG_EVENT_TYPE,
         handler = startDragHandler;  ///
 
   this.addEventListener(eventType, handler, element);
 }
 
 function offStartDrag(startDragHandler, element) {
-  const eventType = START_DRAG,
+  const eventType = START_DRAG_EVENT_TYPE,
         handler = startDragHandler;  ///
 
   this.removeEventListener(eventType, handler, element);
@@ -126,7 +127,7 @@ function stopWaitingToDrag() {
 
 function startDrag(mouseTop, mouseLeft) {
   const bounds = this.getBounds(),
-        eventType = START_DRAG,
+        eventType = START_DRAG_EVENT_TYPE,
         boundsTop = bounds.getTop(),
         boundsLeft = bounds.getLeft(),
         boundsRight = bounds.getRight(),
@@ -164,7 +165,7 @@ function startDrag(mouseTop, mouseLeft) {
 
 function stopDrag() {
   const { dropElement } = globalThis,
-        eventType = STOP_DRAG,
+        eventType = STOP_DRAG_EVENT_TYPE,
         dragElement = null;
 
   window.offKeyDown(keyDownHandler, this);
@@ -187,7 +188,7 @@ function stopDrag() {
 }
 
 function drag(mouseTop, mouseLeft) {
-  const eventType = DRAG,
+  const eventType = DRAG_EVENT_TYPE,
         scrollTop = window.getScrollTop(),
         scrollLeft = window.getScrollLeft(),
         topOffset = this.getTopOffset(),
@@ -343,7 +344,7 @@ function mouseUpHandler(event, element) {
 
   event.stopPropagation();
 
-  window.off(BLUR, mouseUpHandler, this);  ///
+  window.off(BLUR_EVENT_TYPE, mouseUpHandler, this);  ///
 
   window.offMouseUp(mouseUpHandler, this);
 }
@@ -364,7 +365,7 @@ function mouseDownHandler(event, element) {
 
   event.stopPropagation();
 
-  window.on(BLUR, mouseUpHandler, this); ///
+  window.on(BLUR_EVENT_TYPE, mouseUpHandler, this); ///
 
   window.onMouseUp(mouseUpHandler, this);
 }
