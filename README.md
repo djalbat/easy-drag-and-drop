@@ -12,7 +12,7 @@ There is now support for JSX in the form of [Juxtapose](https://github.com/djalb
 
 - [Easy](https://github.com/djalbat/easy) Elements that abstract away from the DOM.
 - [Easy Layout](https://github.com/djalbat/easy-layout) Layout elements that work with CSS flexbox.
-- [Easy Accordion](https://github.com/djalbat/easy-accordion) A responsive accordion and associated navigation.
+- [Easy Navigation](https://github.com/djalbat/easy-navigation) A responsive accordion and associated navigation.
 - [Easy File System](https://github.com/djalbat/easy-file-system) A file system explorer and a rubbish bin.
 - [Easy RichTextarea](https://github.com/djalbat/easy-richtextarea) A textarea element that handles and hands off events well.
 
