@@ -6,7 +6,7 @@ import { dragMixins, DragElement } from "../../index"; ///
 
 import style from "../style";
 
-import { DBLCLICK } from "../constants";
+import { DBLCLICK_EVENT_TYPE } from "../eventTypes";
 
 class DragDiv extends DragElement {
   doubleClickHandler(event, element) {
@@ -16,11 +16,11 @@ class DragDiv extends DragElement {
   didMount() {
     this.enableDrag();
 
-    this.on(DBLCLICK, this.doubleClickHandler, this);
+    this.on(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
   }
 
   willUnmount() {
-    this.off(DBLCLICK, this.doubleClickHandler, this);
+    this.off(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
 
     this.disableDrag();
   }

@@ -35,9 +35,9 @@ function dragHandler(event, element) {
 }
 
 function stopDragHandler(event, element) {
-  console.log("stop drag")
+  console.log("...stop drag")
 }
 
 function startDragHandler(event, element) {
-  console.log("start drag")
+  console.log("start drag...")
 }
