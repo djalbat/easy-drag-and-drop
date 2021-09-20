@@ -92,8 +92,10 @@ In the following listing the drop mixins have been used to add drop functionalit
 
 ```
 class DropDiv extends Element {
-  dropHandler(dragElement, element) {
+  dropHandler(dragElement, element, done) {
     dragElement.remove();
+    
+    done();
   }
 
   didMount() {
@@ -116,7 +118,9 @@ class DropDiv extends Element {
 }
 ```
 
-Note that the drag element that has been dropped onto the drop element is passed as the first argument to the drop handler for convenience. Note also that the usual `event` argument is missing because this is a custom event, not a standard DOM event.
+Note that the `dropHandler()` method is asynchronous, taking a last `done` callback argument that must be invoked.
+
+Also note that the drag element that has been dropped onto the drop element is passed as the first argument to the drop handler for convenience. Note also that the usual `event` argument is missing because this is a custom event, not a standard DOM event.
 
 Finally, note that dropping a drag element onto a drop element results in no changes to either by default and you must add the required behaviour. In the examples, for example, the drag element is simply removed when it is dropped. Be careful of re-positioning drag elements in the DOM when they are successfully dropped, by the way, as they have several event handlers. You are better off removing and re-creating them.
 

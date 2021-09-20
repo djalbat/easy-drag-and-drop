@@ -172,19 +172,23 @@ function stopDrag() {
 
   window.offMouseMove(mouseMoveHandler, this);
 
+  const done = () => {
+    this.callHandlers(eventType);
+
+    Object.assign(globalThis, {
+      dragElement
+    });
+
+    this.removeClass("dragging");
+  }
+
   if (dropElement !== null) {
     const dragElement = this; ///
 
-    dropElement.drop(dragElement);
+    dropElement.drop(dragElement, done);
+  } else {
+    done();
   }
-
-  this.callHandlers(eventType);
-
-  Object.assign(globalThis, {
-    dragElement
-  });
-
-  this.removeClass("dragging");
 }
 
 function drag(mouseTop, mouseLeft) {
@@ -220,7 +224,7 @@ function callHandlers(eventType, ...remainingArguments) {
   eventListeners.forEach((eventListener) => {
     const { handler, element } = eventListener;
 
-    handler.call(element, ...remainingArguments, element);
+    handler.call(element, ...remainingArguments, this); ///
   });
 }
 

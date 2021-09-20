@@ -1,6 +1,10 @@
 "use strict";
 
+import { asynchronousUtilities } from "necessary" ;
+
 import { DROP_EVENT_TYPE, DRAG_OUT_EVENT_TYPE, DRAG_OVER_EVENT_TYPE } from "../eventTypes";
+
+const { forEach } = asynchronousUtilities;
 
 const dropElement = null;
 
@@ -8,10 +12,10 @@ Object.assign(globalThis, {
   dropElement
 });
 
-function drop(dragElement) {
+function drop(dragElement, done) {
   const eventType = DROP_EVENT_TYPE;
 
-  this.callHandlers(eventType, dragElement);
+  this.callHandlersAsync(eventType, dragElement, done);
 }
 
 function dragOut(dragElement) {
@@ -102,8 +106,22 @@ function callHandlers(eventType, ...remainingArguments) {
   eventListeners.forEach((eventListener) => {
     const { handler, element } = eventListener;
 
-    handler.call(element, ...remainingArguments, element);
+    handler.call(element, ...remainingArguments, this); ///
   });
+}
+
+function callHandlersAsync(eventType, ...remainingArguments) {
+  const done = remainingArguments.pop(),  ///
+        eventListeners = this.findEventListeners(eventType);
+
+  debugger
+
+  forEach(eventListeners, (eventListener, next) => {
+    const { handler, element } = eventListener,
+          done = next;  ///
+
+    handler.call(element, ...remainingArguments, this, done); ///
+  }, done);
 }
 
 export default {
@@ -118,7 +136,8 @@ export default {
   offDragOver,
   enableDrop,
   disableDrop,
-  callHandlers
+  callHandlers,
+  callHandlersAsync
 }
 
 function mouseOutHandler(event, element) {
