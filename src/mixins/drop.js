@@ -114,8 +114,6 @@ function callHandlersAsync(eventType, ...remainingArguments) {
   const done = remainingArguments.pop(),  ///
         eventListeners = this.findEventListeners(eventType);
 
-  debugger
-
   forEach(eventListeners, (eventListener, next) => {
     const { handler, element } = eventListener,
           done = next;  ///
