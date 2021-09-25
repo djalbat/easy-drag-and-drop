@@ -173,7 +173,7 @@ function stopDrag() {
   window.offMouseMove(mouseMoveHandler, this);
 
   const done = () => {
-    this.callHandlers(eventType);
+    this.callHandlers(eventType, dropElement);
 
     Object.assign(globalThis, {
       dragElement
