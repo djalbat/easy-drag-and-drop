@@ -30,14 +30,14 @@ export default withStyle(View)`
       
 `;
 
-function dragHandler(event, element) {
+function dragHandler(element) {
   console.log("drag")
 }
 
-function stopDragHandler(event, dropElement, element) {
+function stopDragHandler(dropElement, element) {
   console.log("...stop drag")
 }
 
-function startDragHandler(event, element) {
+function startDragHandler(element) {
   console.log("start drag...")
 }
