@@ -34,8 +34,8 @@ function dragHandler(element) {
   console.log("drag")
 }
 
-function stopDragHandler(dropElement, element) {
-  console.log("...stop drag")
+function stopDragHandler(dropElement, aborted, element) {
+  console.log(`...stop drag ${aborted}`)
 }
 
 function startDragHandler(element) {
