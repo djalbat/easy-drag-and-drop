@@ -92,7 +92,7 @@ In the following listing the drop mixins have been used to add drop functionalit
 
 ```
 class DropDiv extends Element {
-  dropHandler(dragElement, element, done) {
+  dropHandler(dragElement, aborted, element, done) {
     dragElement.remove();
     
     done();

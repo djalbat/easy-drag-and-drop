@@ -185,7 +185,7 @@ function stopDrag(aborted) {
   if (dropElement !== null) {
     const dragElement = this; ///
 
-    dropElement.drop(dragElement, done);
+    dropElement.drop(dragElement, aborted, done);
   } else {
     done();
   }
