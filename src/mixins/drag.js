@@ -1,10 +1,13 @@
 "use strict";
 
 import { window, constants } from "easy";
+import { asynchronousUtilities } from "necessary" ;
 
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
 import { ESCAPE_KEYCODE, START_DRAGGING_DELAY } from "../constants";
 import { BLUR_EVENT_TYPE, DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "../eventTypes";
+
+const { forEach } = asynchronousUtilities;
 
 const dragElement = null;
 
@@ -165,21 +168,22 @@ function startDrag(mouseTop, mouseLeft) {
 
 function stopDrag(aborted) {
   const { dropElement } = globalThis,
-        eventType = STOP_DRAG_EVENT_TYPE,
-        dragElement = null;
+        eventType = STOP_DRAG_EVENT_TYPE;
 
   window.offKeyDown(keyDownHandler, this);
 
   window.offMouseMove(mouseMoveHandler, this);
 
   const done = () => {
-    this.callHandlers(eventType, dropElement, aborted);
+    this.callHandlersAsync(eventType, dropElement, aborted, () => {
+      const dragElement = null;
 
-    Object.assign(globalThis, {
-      dragElement
+      Object.assign(globalThis, {
+        dragElement
+      });
+
+      this.removeClass("dragging");
     });
-
-    this.removeClass("dragging");
   }
 
   if (dropElement !== null) {
@@ -216,16 +220,6 @@ function drag(mouseTop, mouseLeft) {
   this.css(css);
 
   this.callHandlers(eventType, relativeMouseTop, relativeMouseLeft);
-}
-
-function callHandlers(eventType, ...remainingArguments) {
-  const eventListeners = this.findEventListeners(eventType);
-
-  eventListeners.forEach((eventListener) => {
-    const { handler, element } = eventListener;
-
-    handler.call(element, ...remainingArguments, this); ///
-  });
 }
 
 function getTimeout() {
@@ -299,6 +293,28 @@ function setStartMouseLeft(startMouseLeft) {
   });
 }
 
+function callHandlers(eventType, ...remainingArguments) {
+  const eventListeners = this.findEventListeners(eventType);
+
+  eventListeners.forEach((eventListener) => {
+    const { handler, element } = eventListener;
+
+    handler.call(element, ...remainingArguments, this); ///
+  });
+}
+
+function callHandlersAsync(eventType, ...remainingArguments) {
+  const done = remainingArguments.pop(),  ///
+        eventListeners = this.findEventListeners(eventType);
+
+  forEach(eventListeners, (eventListener, next) => {
+    const { handler, element } = eventListener,
+          done = next;  ///
+
+    handler.call(element, ...remainingArguments, this, done); ///
+  }, done);
+}
+
 export default {
   onDrag,
   offDrag,
@@ -314,7 +330,6 @@ export default {
   startDrag,
   stopDrag,
   drag,
-  callHandlers,
   getTimeout,
   resetTimeout,
   updateTimeout,
@@ -325,7 +340,9 @@ export default {
   setTopOffset,
   setLeftOffset,
   setStartMouseTop,
-  setStartMouseLeft
+  setStartMouseLeft,
+  callHandlers,
+  callHandlersAsync
 };
 
 function keyDownHandler(event, element) {
