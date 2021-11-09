@@ -1,7 +1,7 @@
 {
   "name": "easy-drag-and-drop",
   "author": "James Smith",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/easy-drag-and-drop",
   "description": "Drag and drop functionality for Easy elements.",
@@ -10,8 +10,8 @@
     "url": "https://github.com/djalbat/easy-drag-and-drop"
   },
   "dependencies": {
-    "easy": "^13.0.10",
-    "easy-with-style": "^3.0.66"
+    "easy": "^13.0.12",
+    "easy-with-style": "^3.0.67"
   },
   "devDependencies": {
     "@swc/core": "^1.2.50",
