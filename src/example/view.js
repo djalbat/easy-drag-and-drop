@@ -1,13 +1,11 @@
 "use strict";
 
-import withStyle from "easy-with-style";  ///
-
 import { Element } from "easy";
 
 import DragDiv from "./div/drag";
 import DropDiv from "./div/drop";
 
-class View extends Element {
+export default class View extends Element {
   childElements() {
     return ([
 
@@ -23,12 +21,6 @@ class View extends Element {
     className: "view"
   };
 }
-
-export default withStyle(View)`
-
-  padding: 10rem;
-      
-`;
 
 function dragHandler(element) {
   console.log("drag")
