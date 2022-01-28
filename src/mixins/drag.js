@@ -1,21 +1,21 @@
 "use strict";
 
-import { window, constants } from "easy";
-import { asynchronousUtilities } from "necessary" ;
+import { window, buttons, eventTypes } from "easy";
+import { keyCodes, asynchronousUtilities } from "necessary" ;
 
+import { START_DRAGGING_DELAY } from "../constants";
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
-import { ESCAPE_KEYCODE, START_DRAGGING_DELAY } from "../constants";
-import { BLUR_EVENT_TYPE, DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "../eventTypes";
 
-const { forEach } = asynchronousUtilities;
+const { forEach } = asynchronousUtilities,
+      { ESCAPE_KEYCODE } = keyCodes,
+      { LEFT_MOUSE_BUTTON } = buttons,
+      { BLUR_EVENT_TYPE, DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } = eventTypes
 
 const dragElement = null;
 
 Object.assign(globalThis, {
   dragElement
 });
-
-const { LEFT_MOUSE_BUTTON } = constants;
 
 function onDrag(dragHandler, element) {
   const eventType = DRAG_EVENT_TYPE,

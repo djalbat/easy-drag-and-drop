@@ -2,11 +2,12 @@
 
 import withStyle from "easy-with-style";
 
+import { eventTypes } from "easy";
 import { dragMixins, DragElement } from "../../index"; ///
 
 import style from "../style";
 
-import { DBLCLICK_EVENT_TYPE } from "../eventTypes";
+const { DBLCLICK_EVENT_TYPE } = eventTypes;
 
 class DragDiv extends DragElement {
   doubleClickHandler(event, element) {
