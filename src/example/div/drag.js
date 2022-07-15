@@ -10,7 +10,7 @@ import style from "../style";
 const { DBLCLICK_EVENT_TYPE } = eventTypes;
 
 class DragDiv extends DragElement {
-  doubleClickHandler(event, element) {
+  doubleClickHandler = (event, element) => {
     console.log("double click!")
   }
 

@@ -8,17 +8,17 @@ import { dropMixins } from "../../index"; ///
 import style from "../style";
 
 class DropDiv extends Element {
-  dropHandler(dragElement, aborted, element, done) {
+  dropHandler = (dragElement, aborted, element, done) => {
     dragElement.remove();
 
     done();
   }
 
-  dragOutHandler(event, element) {
+  dragOutHandler = (event, element) => {
     this.removeClass("drag-over");
   }
 
-  dragOverHandler(event, element) {
+  dragOverHandler = (event, element) => {
     this.addClass("drag-over");
   }
 
