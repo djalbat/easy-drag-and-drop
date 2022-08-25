@@ -24,7 +24,7 @@ function dragOut(dragElement) {
   this.callHandlers(eventType, dragElement);
 }
 
-function dragOver() {
+function dragOver(dragElement) {
   const eventType = DRAG_OVER_EVENT_TYPE;
 
   this.callHandlers(eventType, dragElement);
