@@ -25,17 +25,17 @@ class DropDiv extends Element {
   didMount() {
     this.enableDrop();
 
-    this.onDrop(this.dropHandler, this);
-    this.onDragOut(this.dragOutHandler, this);
-    this.onDragOver(this.dragOverHandler, this);
+    this.onDrop(this.dropHandler);
+    this.onDragOut(this.dragOutHandler);
+    this.onDragOver(this.dragOverHandler);
   }
 
   willUnmount() {
     this.disableDrop();
 
-    this.offDrop(this.dropHandler, this);
-    this.offDragOut(this.dragOutHandler, this);
-    this.offDragOver(this.dragOverHandler, this);
+    this.offDrop(this.dropHandler);
+    this.offDragOut(this.dragOutHandler);
+    this.offDragOver(this.dragOverHandler);
   }
 
   childElements() {
