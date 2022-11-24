@@ -5,11 +5,12 @@ import { keyCodes, asynchronousUtilities } from "necessary" ;
 
 import { START_DRAGGING_DELAY } from "../constants";
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
+import { DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "../eventTypes";
 
 const { forEach } = asynchronousUtilities,
       { ESCAPE_KEYCODE } = keyCodes,
-      { LEFT_MOUSE_BUTTON } = buttons,
-      { BLUR_EVENT_TYPE, DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } = eventTypes
+      { BLUR_EVENT_TYPE } = eventTypes,
+      { LEFT_MOUSE_BUTTON } = buttons;
 
 const dragElement = null;
 

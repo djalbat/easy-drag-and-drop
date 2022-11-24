@@ -1,10 +1,10 @@
 "use strict";
 
-import { eventTypes } from "easy";
 import { asynchronousUtilities } from "necessary" ;
 
-const { forEach } = asynchronousUtilities,
-      { DROP_EVENT_TYPE, DRAG_OUT_EVENT_TYPE, DRAG_OVER_EVENT_TYPE } = eventTypes;
+import { DROP_EVENT_TYPE, DRAG_OUT_EVENT_TYPE, DRAG_OVER_EVENT_TYPE } from "../eventTypes";
+
+const { forEach } = asynchronousUtilities;
 
 const dropElement = null;
 
