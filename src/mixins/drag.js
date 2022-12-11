@@ -224,8 +224,7 @@ function drag(mouseTop, mouseLeft) {
 }
 
 function getTimeout() {
-  const state = this.getState(),
-        { timeout } = state;
+  const { timeout } = this.getState();
 
   return timeout;
 }
@@ -243,29 +242,25 @@ function updateTimeout(timeout) {
 }
 
 function getTopOffset() {
-  const state = this.getState(),
-        { topOffset } = state;
+  const { topOffset } = this.getState();
 
   return topOffset;
 }
 
 function getLeftOffset() {
-  const state = this.getState(),
-        { leftOffset } = state;
+  const { leftOffset } = this.getState();
 
   return leftOffset;
 }
 
 function getStartMouseTop() {
-  const state = this.getState(),
-      { startMouseTop } = state;
+  const { startMouseTop } = this.getState();
 
   return startMouseTop;
 }
 
 function getStartMouseLeft() {
-  const state = this.getState(),
-      { startMouseLeft } = state;
+  const { startMouseLeft } = this.getState();
 
   return startMouseLeft;
 }
