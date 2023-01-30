@@ -8,7 +8,7 @@ import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
 import { DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "../eventTypes";
 
 const { forEach } = asynchronousUtilities,
-      { ESCAPE_KEYCODE } = keyCodes,
+      { ESCAPE_KEY_CODE } = keyCodes,
       { BLUR_EVENT_TYPE } = eventTypes,
       { LEFT_MOUSE_BUTTON } = buttons;
 
@@ -345,7 +345,7 @@ export default {
 
 function keyDownHandler(event, element) {
   const { keyCode } = event,
-        escapeKey = (keyCode === ESCAPE_KEYCODE),
+        escapeKey = (keyCode === ESCAPE_KEY_CODE),
         aborted = true;
 
   if (escapeKey) {
