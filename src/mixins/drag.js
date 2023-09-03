@@ -1,6 +1,6 @@
 "use strict";
 
-import { window, buttons, eventTypes } from "easy";
+import { window, eventTypes, mouseButtons } from "easy";
 import { keyCodes, asynchronousUtilities } from "necessary" ;
 
 import { START_DRAGGING_DELAY } from "../constants";
@@ -10,7 +10,7 @@ import { DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "..
 const { forEach } = asynchronousUtilities,
       { ESCAPE_KEY_CODE } = keyCodes,
       { BLUR_EVENT_TYPE } = eventTypes,
-      { LEFT_MOUSE_BUTTON } = buttons;
+      { LEFT_MOUSE_BUTTON } = mouseButtons;
 
 const dragElement = null;
 
