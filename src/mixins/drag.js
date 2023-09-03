@@ -1,7 +1,7 @@
 "use strict";
 
-import { window, eventTypes, mouseButtons } from "easy";
 import { keyCodes, asynchronousUtilities } from "necessary" ;
+import { window, eventTypes, mouseButtons } from "easy";
 
 import { START_DRAGGING_DELAY } from "../constants";
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
