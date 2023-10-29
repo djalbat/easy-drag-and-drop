@@ -9,7 +9,9 @@ import style from "../style";
 
 class DropDiv extends Element {
   dropHandler = (dragElement, aborted, element, done) => {
-    dragElement.remove();
+    if (dragElement !== null) {
+      dragElement.remove();
+    }
 
     done();
   }
@@ -20,6 +22,12 @@ class DropDiv extends Element {
 
   dragOverHandler = (event, element) => {
     this.addClass("drag-over");
+  }
+
+  getReference() {
+    const { reference = null } = this.properties;
+
+    return reference;
   }
 
   didMount() {
@@ -44,8 +52,13 @@ class DropDiv extends Element {
 
   static tagName = "div";
 
+  static ignoredProperties = [
+    "reference"
+  ];
+
   static defaultProperties = {
-    className: "drop"
+    className: "drop",
+    reference: "drop-div"
   };
 }
 

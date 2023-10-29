@@ -4,6 +4,7 @@ import { keyCodes, asynchronousUtilities } from "necessary" ;
 import { window, eventTypes, mouseButtons } from "easy";
 
 import { START_DRAGGING_DELAY } from "../constants";
+import { checkDragElementIgnoresDropElement } from "../utilities/reference";
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
 import { DRAG_EVENT_TYPE, STOP_DRAG_EVENT_TYPE, START_DRAG_EVENT_TYPE } from "../eventTypes";
 
@@ -188,7 +189,13 @@ function stopDrag(aborted) {
   }
 
   if (dropElement !== null) {
-    const dragElement = this; ///
+    let dragElement = this; ///
+
+    const dragElementIgnoresDropElement = checkDragElementIgnoresDropElement(dragElement, dropElement);
+
+    if (dragElementIgnoresDropElement) {
+      dragElement = null;
+    }
 
     dropElement.drop(dragElement, aborted, done);
   } else {

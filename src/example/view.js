@@ -7,10 +7,14 @@ import DropDiv from "./div/drop";
 
 export default class View extends Element {
   childElements() {
+    const references = [
+      "drop-div"
+    ];
+
     return ([
 
       <DropDiv/>,
-      <DragDiv onDrag={dragHandler} onStopDrag={stopDragHandler} onStartDrag={startDragHandler} />
+      <DragDiv onDrag={dragHandler} onStopDrag={stopDragHandler} onStartDrag={startDragHandler} references={references} />
 
     ]);
   }

@@ -7,6 +7,12 @@ import { Element } from "easy";
 import dragMixins from "../mixins/drag";
 
 class DragElement extends Element {
+  getReferences() {
+    const { references = [] } = this.properties;
+
+    return references;
+  }
+
   didMount() {
     this.enableDrag();
   }
@@ -17,6 +23,7 @@ class DragElement extends Element {
 
   static ignoredProperties = [
     "onDrag",
+    "references",
     "onStartDrag",
     "offStartDrag"
   ];

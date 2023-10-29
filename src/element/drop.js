@@ -5,6 +5,12 @@ import { Element } from "easy";
 import dropMixins from "../mixins/drop";
 
 export default class DropElement extends Element {
+  getReference() {
+    const { reference = null } = this.properties;
+
+    return reference;
+  }
+
   didMount() {
     this.enableDrop();
   }
@@ -15,6 +21,7 @@ export default class DropElement extends Element {
 
   static ignoredProperties = [
     "onDrop",
+    "reference",
     "onDragOut",
     "onDragOver"
   ];

@@ -2,6 +2,7 @@
 
 import { asynchronousUtilities } from "necessary" ;
 
+import { checkDragElementIgnoresDropElement } from "../utilities/reference";
 import { DROP_EVENT_TYPE, DRAG_OUT_EVENT_TYPE, DRAG_OVER_EVENT_TYPE } from "../eventTypes";
 
 const { forEach } = asynchronousUtilities;
@@ -160,7 +161,12 @@ function mouseOverHandler(event, element) {
   const { dragElement } = globalThis;
 
   if (dragElement !== null) {
-    const dropElement = this; ///
+    const dropElement = this, ///
+          dragElementIgnoresDropElement = checkDragElementIgnoresDropElement(dragElement, dropElement);
+
+    if (dragElementIgnoresDropElement) {
+      return;
+    }
 
     Object.assign(globalThis, {
       dropElement
