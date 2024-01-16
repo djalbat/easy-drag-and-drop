@@ -6,7 +6,7 @@ import { window, eventTypes, mouseButtons } from "easy";
 import { START_DRAGGING_DELAY } from "../constants";
 import { checkDragElementIgnoresDropElement } from "../utilities/reference";
 import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
-import { DRAG_CUSTOM_CUSTOM_EVENT_TYPE, STOP_DRAG_CUSTOM_EVENT_TYPE, START_DRAG_CUSTOM_EVENT_TYPE } from "../customEventTypes";
+import { DRAG_CUSTOM_EVENT_TYPE, STOP_DRAG_CUSTOM_EVENT_TYPE, START_DRAG_CUSTOM_EVENT_TYPE } from "../customEventTypes";
 
 const { ESCAPE_KEY_CODE } = keyCodes,
       { BLUR_EVENT_TYPE } = eventTypes,
@@ -126,7 +126,7 @@ function drag(mouseTop, mouseLeft) {
     leftOffset = this.getLeftOffset(),
     startMouseTop = this.getStartMouseTop(),
     startMouseLeft = this.getStartMouseLeft(),
-    customEventType = DRAG_CUSTOM_CUSTOM_EVENT_TYPE,
+    customEventType = DRAG_CUSTOM_EVENT_TYPE,
     relativeMouseTop = mouseTop - startMouseTop,
     relativeMouseLeft = mouseLeft - startMouseLeft;
 
@@ -147,14 +147,14 @@ function drag(mouseTop, mouseLeft) {
 }
 
 function onCustomDrag(dragCustomHandler, element) {
-  const customEventType = DRAG_CUSTOM_CUSTOM_EVENT_TYPE,
+  const customEventType = DRAG_CUSTOM_EVENT_TYPE,
         customHandler = dragCustomHandler;  ///
 
   this.onCustomEvent(customEventType, customHandler, element);
 }
 
 function offCustomDrag(dragCustomHandler, element) {
-  const customEventType = DRAG_CUSTOM_CUSTOM_EVENT_TYPE,
+  const customEventType = DRAG_CUSTOM_EVENT_TYPE,
         customHandler = dragCustomHandler;  ///
 
   this.offCustomEvent(customEventType, customHandler, element);
