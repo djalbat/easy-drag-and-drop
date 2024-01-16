@@ -17,11 +17,11 @@ class DragDiv extends DragElement {
   didMount() {
     this.enableDrag();
 
-    this.on(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
+    this.onEvent(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
   }
 
   willUnmount() {
-    this.off(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
+    this.offEvent(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
 
     this.disableDrag();
   }

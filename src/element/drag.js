@@ -22,10 +22,7 @@ class DragElement extends Element {
   }
 
   static ignoredProperties = [
-    "onDrag",
-    "references",
-    "onStartDrag",
-    "offStartDrag"
+    "references"
   ];
 }
 

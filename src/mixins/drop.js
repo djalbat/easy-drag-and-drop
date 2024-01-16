@@ -1,11 +1,7 @@
 "use strict";
 
-import { asynchronousUtilities } from "necessary" ;
-
 import { checkDragElementIgnoresDropElement } from "../utilities/reference";
-import { DROP_EVENT_TYPE, DRAG_OUT_EVENT_TYPE, DRAG_OVER_EVENT_TYPE } from "../eventTypes";
-
-const { forEach } = asynchronousUtilities;
+import { DROP_CUSTOM_EVENT_TYPE, DRAG_OUT_CUSTOM_EVENT_TYPE, DRAG_OVER_CUSTOM_EVENT_TYPE } from "../customEventTypes";
 
 const dropElement = null;
 
@@ -14,131 +10,87 @@ Object.assign(globalThis, {
 });
 
 function drop(dragElement, aborted, done) {
-  const eventType = DROP_EVENT_TYPE;
+  const customEventType = DROP_CUSTOM_EVENT_TYPE;
 
-  this.callHandlersAsync(eventType, dragElement, aborted, done);
+  this.callCustomHandlersAsync(customEventType, dragElement, aborted, done);
 }
 
 function dragOut(dragElement) {
-  const eventType = DRAG_OUT_EVENT_TYPE;
+  const customEventType = DRAG_OUT_CUSTOM_EVENT_TYPE;
 
-  this.callHandlers(eventType, dragElement);
+  this.callCustomHandlers(customEventType, dragElement);
 }
 
 function dragOver(dragElement) {
-  const eventType = DRAG_OVER_EVENT_TYPE;
+  const customEventType = DRAG_OVER_CUSTOM_EVENT_TYPE;
 
-  this.callHandlers(eventType, dragElement);
-}
-
-function onDrop(dropHandler, element) {
-  const eventType = DROP_EVENT_TYPE,
-        handler = dropHandler;  ///
-
-  this.addEventListener(eventType, handler, element);
-}
-
-function offDrop(dropHandler, element) {
-  const eventType = DROP_EVENT_TYPE,
-        handler = dropHandler;  ///
-
-  this.removeEventListener(eventType, handler, element);
-}
-
-function onDragOut(dragOutHandler, element) {
-  const eventType = DRAG_OUT_EVENT_TYPE,
-        handler = dragOutHandler;  ///
-
-  this.addEventListener(eventType, handler, element);
-}
-
-function offDragOut(dragOutHandler, element) {
-  const eventType = DRAG_OUT_EVENT_TYPE,
-        handler = dragOutHandler;  ///
-
-  this.removeEventListener(eventType, handler, element);
-}
-
-function onDragOver(dragOverHandler, element) {
-  const eventType = DRAG_OVER_EVENT_TYPE,
-        handler = dragOverHandler;  ///
-
-  this.addEventListener(eventType, handler, element);
-}
-
-function offDragOver(dragOverHandler, element) {
-  const eventType = DRAG_OVER_EVENT_TYPE,
-        handler = dragOverHandler;  ///
-
-  this.removeEventListener(eventType, handler, element);
+  this.callCustomHandlers(customEventType, dragElement);
 }
 
 function enableDrop() {
-  const { onDrop, onDragOut, onDragOver } = this.properties,
-        dropHandler = onDrop, ///
-        dragOutHandler = onDragOut, ///
-        dragOverHandler = onDragOver; ///
-
-  dropHandler && this.onDrop(dropHandler);
-  dragOutHandler && this.onDragOut(dragOutHandler);
-  dragOverHandler && this.onDragOver(dragOverHandler);
-
   this.onMouseOut(mouseOutHandler, this);
   this.onMouseOver(mouseOverHandler, this);
 }
 
 function disableDrop() {
-  const { onDrop, onDragOut, onDragOver } = this.properties,
-        dropHandler = onDrop, ///
-        dragOutHandler = onDragOut, ///
-        dragOverHandler = onDragOver; ///
-
-  dropHandler && this.offDrop(dropHandler);
-  dragOutHandler && this.offDragOut(dragOutHandler);
-  dragOverHandler && this.offDragOver(dragOverHandler);
-
   this.offMouseOut(mouseOutHandler, this);
   this.offMouseOver(mouseOverHandler, this);
 }
 
-function callHandlers(eventType, ...remainingArguments) {
-  const eventListeners = this.findEventListeners(eventType);
+function onCustomDrop(dropCustomHandler, element) {
+  const customEventType = DROP_CUSTOM_EVENT_TYPE,
+        customHandler = dropCustomHandler;  ///
 
-  eventListeners.forEach((eventListener) => {
-    const { handler, element: handlerElement } = eventListener,
-          element = this; ///
-
-    handler.call(handlerElement, ...remainingArguments, element);
-  });
+  this.onCustomEvent(customEventType, customHandler, element);
 }
 
-function callHandlersAsync(eventType, ...remainingArguments) {
-  const done = remainingArguments.pop(),  ///
-        eventListeners = this.findEventListeners(eventType);
+function offCustomDrop(dropCustomHandler, element) {
+  const customEventType = DROP_CUSTOM_EVENT_TYPE,
+        customHandler = dropCustomHandler;  ///
 
-  forEach(eventListeners, (eventListener, next) => {
-    const { handler, element: handlerElement } = eventListener,
-          element = this, ///
-          done = next;  ///
+  this.offCustomEvent(customEventType, customHandler, element);
+}
 
-    handler.call(handlerElement, ...remainingArguments, element, done);
-  }, done);
+function onCustomDragOut(dragOutCustomHandler, element) {
+  const customEventType = DRAG_OUT_CUSTOM_EVENT_TYPE,
+        customHandler = dragOutCustomHandler;  ///
+
+  this.onCustomEvent(customEventType, customHandler, element);
+}
+
+function offCustomDragOut(dragOutCustomHandler, element) {
+  const customEventType = DRAG_OUT_CUSTOM_EVENT_TYPE,
+        customHandler = dragOutCustomHandler;  ///
+
+  this.offCustomEvent(customEventType, customHandler, element);
+}
+
+function onCustomDragOver(dragOverCustomHandler, element) {
+  const customEventType = DRAG_OVER_CUSTOM_EVENT_TYPE,
+        customHandler = dragOverCustomHandler;  ///
+
+  this.onCustomEvent(customEventType, customHandler, element);
+}
+
+function offCustomDragOver(dragOverCustomHandler, element) {
+  const customEventType = DRAG_OVER_CUSTOM_EVENT_TYPE,
+        customHandler = dragOverCustomHandler;  ///
+
+  this.offCustomEvent(customEventType, customHandler, element);
 }
 
 export default {
   drop,
   dragOut,
   dragOver,
-  onDrop,
-  offDrop,
-  onDragOut,
-  offDragOut,
-  onDragOver,
-  offDragOver,
   enableDrop,
   disableDrop,
-  callHandlers,
-  callHandlersAsync
+  onCustomDrop,
+  offCustomDrop,
+  onCustomDragOut,
+  offCustomDragOut,
+  onCustomDragOver,
+  offCustomDragOver
 }
 
 function mouseOutHandler(event, element) {

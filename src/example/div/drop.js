@@ -8,7 +8,7 @@ import { dropMixins } from "../../index"; ///
 import style from "../style";
 
 class DropDiv extends Element {
-  dropHandler = (dragElement, aborted, element, done) => {
+  dropCustomHandler = (dragElement, aborted, element, done) => {
     if (dragElement !== null) {
       dragElement.remove();
     }
@@ -16,11 +16,11 @@ class DropDiv extends Element {
     done();
   }
 
-  dragOutHandler = (event, element) => {
+  dragOutCustomHandler = (event, element) => {
     this.removeClass("drag-over");
   }
 
-  dragOverHandler = (event, element) => {
+  dragOverCustomHandler = (event, element) => {
     this.addClass("drag-over");
   }
 
@@ -33,17 +33,17 @@ class DropDiv extends Element {
   didMount() {
     this.enableDrop();
 
-    this.onDrop(this.dropHandler);
-    this.onDragOut(this.dragOutHandler);
-    this.onDragOver(this.dragOverHandler);
+    this.onCustomDrop(this.dropCustomHandler);
+    this.onCustomDragOut(this.dragOutCustomHandler);
+    this.onCustomDragOver(this.dragOverCustomHandler);
   }
 
   willUnmount() {
     this.disableDrop();
 
-    this.offDrop(this.dropHandler);
-    this.offDragOut(this.dragOutHandler);
-    this.offDragOver(this.dragOverHandler);
+    this.offCustomDrop(this.dropCustomHandler);
+    this.offCustomDragOut(this.dragOutCustomHandler);
+    this.offCustomDragOver(this.dragOverCustomHandler);
   }
 
   childElements() {

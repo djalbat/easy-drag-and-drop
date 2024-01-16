@@ -20,10 +20,7 @@ export default class DropElement extends Element {
   }
 
   static ignoredProperties = [
-    "onDrop",
-    "reference",
-    "onDragOut",
-    "onDragOver"
+    "reference"
   ];
 }
 
