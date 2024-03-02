@@ -27,7 +27,7 @@ function enableDrag() {
 
   this.onMouseDown(mouseDownHandler, this);
 
-  this.setState({
+  this.updateState({
     timeout,
     topOffset,
     leftOffset,
