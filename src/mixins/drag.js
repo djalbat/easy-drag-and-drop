@@ -121,17 +121,17 @@ function stopDrag(aborted) {
 
 function drag(mouseTop, mouseLeft) {
   const scrollTop = window.getScrollTop(),
-    scrollLeft = window.getScrollLeft(),
-    topOffset = this.getTopOffset(),
-    leftOffset = this.getLeftOffset(),
-    startMouseTop = this.getStartMouseTop(),
-    startMouseLeft = this.getStartMouseLeft(),
-    customEventType = DRAG_CUSTOM_EVENT_TYPE,
-    relativeMouseTop = mouseTop - startMouseTop,
-    relativeMouseLeft = mouseLeft - startMouseLeft;
+        scrollLeft = window.getScrollLeft(),
+        topOffset = this.getTopOffset(),
+        leftOffset = this.getLeftOffset(),
+        startMouseTop = this.getStartMouseTop(),
+        startMouseLeft = this.getStartMouseLeft(),
+        customEventType = DRAG_CUSTOM_EVENT_TYPE,
+        relativeMouseTop = mouseTop - startMouseTop,
+        relativeMouseLeft = mouseLeft - startMouseLeft;
 
   let top = startMouseTop + relativeMouseTop - topOffset - scrollTop,
-    left = startMouseLeft + relativeMouseLeft - leftOffset - scrollLeft;
+      left = startMouseLeft + relativeMouseLeft - leftOffset - scrollLeft;
 
   top = `${top}px`; ///
   left = `${left}px`; ///
