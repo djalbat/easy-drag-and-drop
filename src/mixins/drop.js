@@ -9,10 +9,10 @@ Object.assign(globalThis, {
   dropElement
 });
 
-function drop(dragElement, aborted, done) {
+function drop(event, element, dragElement, aborted, done) {
   const customEventType = DROP_CUSTOM_EVENT_TYPE;
 
-  this.callCustomHandlersAsync(customEventType, dragElement, aborted, done);
+  this.callCustomHandlersAsync(customEventType, event, element, dragElement, aborted, done);
 }
 
 function dragOut(dragElement) {

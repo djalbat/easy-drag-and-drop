@@ -26,16 +26,16 @@ export default class View extends Element {
   };
 }
 
-function dragHandler(element) {
+function dragHandler(event, element) {
   console.log("drag")
 }
 
-function stopDragHandler(dropElement, aborted, element, done) {
+function stopDragHandler(event, element, dropElement, aborted, done) {
   console.log(`...stop drag ${aborted}`)
 
   done();
 }
 
-function startDragHandler(element) {
+function startDragHandler(event, element) {
   console.log("start drag...")
 }

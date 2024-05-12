@@ -40,112 +40,6 @@ function disableDrag() {
   this.offMouseDown(mouseDownHandler, this);
 }
 
-function isDragging() {
-  const dragging = this.hasClass("dragging");
-
-  return dragging;
-}
-
-function startDrag(mouseTop, mouseLeft) {
-  const bounds = this.getBounds(),
-        boundsTop = bounds.getTop(),
-        boundsLeft = bounds.getLeft(),
-        boundsRight = bounds.getRight(),
-        boundsBottom = bounds.getBottom(),
-        boundsWidth = boundsRight - boundsLeft,
-        boundsHeight = boundsBottom - boundsTop,
-        topOffset = Math.floor(boundsHeight / 2),
-        leftOffset = Math.floor(boundsWidth / 2),
-        dragElement = this, ///
-        startMouseTop = mouseTop, ///
-        startMouseLeft = mouseLeft, ///
-        customEventType = START_DRAG_CUSTOM_EVENT_TYPE;
-
-  window.onKeyDown(keyDownHandler, this);
-
-  window.onMouseMove(mouseMoveHandler, this);
-
-  this.addClass("dragging");
-
-  Object.assign(globalThis, {
-    dragElement
-  });
-
-  this.setTopOffset(topOffset);
-
-  this.setLeftOffset(leftOffset);
-
-  this.setStartMouseTop(startMouseTop);
-
-  this.setStartMouseLeft(startMouseLeft);
-
-  this.callCustomHandlers(customEventType);
-
-  this.drag(mouseTop, mouseLeft);
-}
-
-function stopDrag(aborted) {
-  const { dropElement } = globalThis,
-        customEventType = STOP_DRAG_CUSTOM_EVENT_TYPE;
-
-  window.offKeyDown(keyDownHandler, this);
-
-  window.offMouseMove(mouseMoveHandler, this);
-
-  const done = () => {
-    this.callCustomHandlersAsync(customEventType, dropElement, aborted, () => {
-      const dragElement = null;
-
-      Object.assign(globalThis, {
-        dragElement
-      });
-
-      this.removeClass("dragging");
-    });
-  }
-
-  if (dropElement !== null) {
-    let dragElement = this; ///
-
-    const dragElementIgnoresDropElement = checkDragElementIgnoresDropElement(dragElement, dropElement);
-
-    if (dragElementIgnoresDropElement) {
-      dragElement = null;
-    }
-
-    dropElement.drop(dragElement, aborted, done);
-  } else {
-    done();
-  }
-}
-
-function drag(mouseTop, mouseLeft) {
-  const scrollTop = window.getScrollTop(),
-        scrollLeft = window.getScrollLeft(),
-        topOffset = this.getTopOffset(),
-        leftOffset = this.getLeftOffset(),
-        startMouseTop = this.getStartMouseTop(),
-        startMouseLeft = this.getStartMouseLeft(),
-        customEventType = DRAG_CUSTOM_EVENT_TYPE,
-        relativeMouseTop = mouseTop - startMouseTop,
-        relativeMouseLeft = mouseLeft - startMouseLeft;
-
-  let top = startMouseTop + relativeMouseTop - topOffset - scrollTop,
-      left = startMouseLeft + relativeMouseLeft - leftOffset - scrollLeft;
-
-  top = `${top}px`; ///
-  left = `${left}px`; ///
-
-  const css = {
-    top,
-    left
-  };
-
-  this.css(css);
-
-  this.callCustomHandlers(customEventType, relativeMouseTop, relativeMouseLeft);
-}
-
 function onCustomDrag(dragCustomHandler, element) {
   const customEventType = DRAG_CUSTOM_EVENT_TYPE,
         customHandler = dragCustomHandler;  ///
@@ -188,14 +82,120 @@ function offCustomStartDrag(startDragCustomHandler, element) {
   this.offCustomEvent(customEventType, customHandler, element);
 }
 
-function startWaitingToDrag(mouseTop, mouseLeft) {
+function isDragging() {
+  const dragging = this.hasClass("dragging");
+
+  return dragging;
+}
+
+function startDrag(event, element, mouseTop, mouseLeft) {
+  const bounds = this.getBounds(),
+        boundsTop = bounds.getTop(),
+        boundsLeft = bounds.getLeft(),
+        boundsRight = bounds.getRight(),
+        boundsBottom = bounds.getBottom(),
+        boundsWidth = boundsRight - boundsLeft,
+        boundsHeight = boundsBottom - boundsTop,
+        topOffset = Math.floor(boundsHeight / 2),
+        leftOffset = Math.floor(boundsWidth / 2),
+        dragElement = this, ///
+        startMouseTop = mouseTop, ///
+        startMouseLeft = mouseLeft, ///
+        customEventType = START_DRAG_CUSTOM_EVENT_TYPE;
+
+  window.onKeyDown(keyDownHandler, this);
+
+  window.onMouseMove(mouseMoveHandler, this);
+
+  this.addClass("dragging");
+
+  Object.assign(globalThis, {
+    dragElement
+  });
+
+  this.setTopOffset(topOffset);
+
+  this.setLeftOffset(leftOffset);
+
+  this.setStartMouseTop(startMouseTop);
+
+  this.setStartMouseLeft(startMouseLeft);
+
+  this.callCustomHandlers(customEventType, event, element);
+
+  this.drag(event, element, mouseTop, mouseLeft);
+}
+
+function stopDrag(event, element, aborted) {
+  const { dropElement } = globalThis,
+        customEventType = STOP_DRAG_CUSTOM_EVENT_TYPE;
+
+  window.offKeyDown(keyDownHandler, this);
+
+  window.offMouseMove(mouseMoveHandler, this);
+
+  const done = () => {
+    this.callCustomHandlersAsync(customEventType, event, element, dropElement, aborted, () => {
+      const dragElement = null;
+
+      Object.assign(globalThis, {
+        dragElement
+      });
+
+      this.removeClass("dragging");
+    });
+  }
+
+  if (dropElement !== null) {
+    let dragElement = this; ///
+
+    const dragElementIgnoresDropElement = checkDragElementIgnoresDropElement(dragElement, dropElement);
+
+    if (dragElementIgnoresDropElement) {
+      dragElement = null;
+    }
+
+    dropElement.drop(event, element, dragElement, aborted, done);
+  } else {
+    done();
+  }
+}
+
+function drag(event, element, mouseTop, mouseLeft) {
+  const scrollTop = window.getScrollTop(),
+        scrollLeft = window.getScrollLeft(),
+        topOffset = this.getTopOffset(),
+        leftOffset = this.getLeftOffset(),
+        startMouseTop = this.getStartMouseTop(),
+        startMouseLeft = this.getStartMouseLeft(),
+        customEventType = DRAG_CUSTOM_EVENT_TYPE,
+        relativeMouseTop = mouseTop - startMouseTop,
+        relativeMouseLeft = mouseLeft - startMouseLeft;
+
+  let top = startMouseTop + relativeMouseTop - topOffset - scrollTop,
+      left = startMouseLeft + relativeMouseLeft - leftOffset - scrollLeft;
+
+  top = `${top}px`; ///
+  left = `${left}px`; ///
+
+  const css = {
+    top,
+    left
+  };
+
+  this.css(css);
+
+  this.callCustomHandlers(event, element, customEventType, relativeMouseTop, relativeMouseLeft);
+}
+
+function startWaitingToDrag(event, element, mouseTop, mouseLeft) {
   let timeout = this.getTimeout();
 
   if (timeout === null) {
     timeout = setTimeout(() => {
       this.resetTimeout();
 
-      this.startDrag(mouseTop, mouseLeft);
+      this.startDrag(event, element, mouseTop, mouseLeft);
     }, START_DRAGGING_DELAY);
 
     this.updateTimeout(timeout);
@@ -281,16 +281,16 @@ function setStartMouseLeft(startMouseLeft) {
 export default {
   enableDrag,
   disableDrag,
-  isDragging,
-  startDrag,
-  stopDrag,
-  drag,
   onCustomDrag,
   offCustomDrag,
   onCustomStopDrag,
   offCustomStopDrag,
   onCustomStartDrag,
   offCustomStartDrag,
+  isDragging,
+  startDrag,
+  stopDrag,
+  drag,
   startWaitingToDrag,
   stopWaitingToDrag,
   getTimeout,
@@ -312,7 +312,7 @@ function keyDownHandler(event, element) {
         aborted = true;
 
   if (escapeKey) {
-    this.stopDrag(aborted);
+    this.stopDrag(event, element, aborted);
 
     event.stopPropagation();
   }
@@ -323,7 +323,7 @@ function mouseUpHandler(event, element) {
         aborted = false;
 
   dragging ?
-    this.stopDrag(aborted) :
+    this.stopDrag(event, element, aborted) :
       this.stopWaitingToDrag();
 
   event.stopPropagation();
@@ -343,7 +343,7 @@ function mouseDownHandler(event, element) {
       const mouseTop = mouseTopFromEvent(event),
             mouseLeft = mouseLeftFromEvent(event);
 
-      this.startWaitingToDrag(mouseTop, mouseLeft);
+      this.startWaitingToDrag(event, element, mouseTop, mouseLeft);
     }
   }
 
@@ -361,7 +361,7 @@ function mouseMoveHandler(event, element) {
     const mouseTop = mouseTopFromEvent(event),
           mouseLeft = mouseLeftFromEvent(event);
 
-    this.drag(mouseTop, mouseLeft);
+    this.drag(event, element, mouseTop, mouseLeft);
   }
 
   event.stopPropagation();

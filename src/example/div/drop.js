@@ -8,7 +8,7 @@ import { dropMixins } from "../../index"; ///
 import style from "../style";
 
 class DropDiv extends Element {
-  dropCustomHandler = (dragElement, aborted, element, done) => {
+  dropCustomHandler = (event, element, dragElement, aborted, done) => {
     if (dragElement !== null) {
       dragElement.remove();
     }
