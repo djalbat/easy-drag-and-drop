@@ -185,7 +185,7 @@ function drag(event, element, mouseTop, mouseLeft) {
 
   this.css(css);
 
-  this.callCustomHandlers(event, element, customEventType, relativeMouseTop, relativeMouseLeft);
+  this.callCustomHandlers(customEventType, event, element, relativeMouseTop, relativeMouseLeft);
 }
 
 function startWaitingToDrag(event, element, mouseTop, mouseLeft) {
