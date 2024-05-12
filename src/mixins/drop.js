@@ -15,16 +15,16 @@ function drop(event, element, dragElement, aborted, done) {
   this.callCustomHandlersAsync(customEventType, event, element, dragElement, aborted, done);
 }
 
-function dragOut(dragElement) {
+function dragOut(event, element, dragElement) {
   const customEventType = DRAG_OUT_CUSTOM_EVENT_TYPE;
 
-  this.callCustomHandlers(customEventType, dragElement);
+  this.callCustomHandlers(customEventType, event, element, dragElement);
 }
 
-function dragOver(dragElement) {
+function dragOver(event, element, dragElement) {
   const customEventType = DRAG_OVER_CUSTOM_EVENT_TYPE;
 
-  this.callCustomHandlers(customEventType, dragElement);
+  this.callCustomHandlers(customEventType, event, element, dragElement);
 }
 
 function enableDrop() {
@@ -103,7 +103,7 @@ function mouseOutHandler(event, element) {
       dropElement
     });
 
-    this.dragOut(dragElement);
+    this.dragOut(event, element, dragElement);
   }
 
   event.stopPropagation();
@@ -124,7 +124,7 @@ function mouseOverHandler(event, element) {
       dropElement
     });
 
-    this.dragOver(dragElement);
+    this.dragOver(event, element, dragElement);
   }
 
   event.stopPropagation();
