@@ -12,11 +12,31 @@ const { ESCAPE_KEY_CODE } = keyCodes,
       { BLUR_EVENT_TYPE } = eventTypes,
       { LEFT_MOUSE_BUTTON } = mouseButtons;
 
-const dragElement = null;
+function getDragElement() {
+  const { dragElement } = globalThis;
+
+  return dragElement;
+}
+
+function setDragElement(dragElement) {
+  Object.assign(globalThis, {
+    dragElement
+  });
+}
+
+function resetDragElement() {
+  const dragElement = null;
+
+  setDragElement(dragElement);
+}
 
 Object.assign(globalThis, {
-  dragElement
+  getDragElement,
+  setDragElement,
+  resetDragElement
 });
+
+resetDragElement();
 
 function enableDrag() {
   const timeout = null,
@@ -109,9 +129,7 @@ function startDrag(event, element, mouseTop, mouseLeft) {
 
   this.addClass("dragging");
 
-  Object.assign(globalThis, {
-    dragElement
-  });
+  setDragElement(dragElement);
 
   this.setTopOffset(topOffset);
 
@@ -127,7 +145,7 @@ function startDrag(event, element, mouseTop, mouseLeft) {
 }
 
 function stopDrag(event, element, aborted) {
-  const { dropElement } = globalThis,
+  const dropElement = getDropElement(),
         customEventType = STOP_DRAG_CUSTOM_EVENT_TYPE;
 
   window.offKeyDown(keyDownHandler, this);
@@ -136,11 +154,7 @@ function stopDrag(event, element, aborted) {
 
   const done = () => {
     this.callCustomHandlersAsync(customEventType, event, element, dropElement, aborted, () => {
-      const dragElement = null;
-
-      Object.assign(globalThis, {
-        dragElement
-      });
+      resetDragElement();
 
       this.removeClass("dragging");
     });

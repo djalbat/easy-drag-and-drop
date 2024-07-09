@@ -3,11 +3,31 @@
 import { checkDragElementIgnoresDropElement } from "../utilities/reference";
 import { DROP_CUSTOM_EVENT_TYPE, DRAG_OUT_CUSTOM_EVENT_TYPE, DRAG_OVER_CUSTOM_EVENT_TYPE } from "../customEventTypes";
 
-const dropElement = null;
+function getDropElement() {
+  const { dropElement } = globalThis;
+
+  return dropElement;
+}
+
+function setDropElement(dropElement) {
+  Object.assign(globalThis, {
+    dropElement
+  });
+}
+
+function resetDropElement() {
+  const dropElement = null;
+
+  setDropElement(dropElement);
+}
 
 Object.assign(globalThis, {
-  dropElement
+  getDropElement,
+  setDropElement,
+  resetDropElement
 });
+
+resetDropElement();
 
 function drop(event, element, dragElement, aborted, done) {
   const customEventType = DROP_CUSTOM_EVENT_TYPE;
@@ -94,14 +114,10 @@ export default {
 }
 
 function mouseOutHandler(event, element) {
-  const { dragElement } = globalThis;
+  const dragElement = getDragElement();
 
   if (dragElement !== null) {
-    const dropElement = null; ///
-
-    Object.assign(globalThis, {
-      dropElement
-    });
+    resetDropElement();
 
     this.dragOut(event, element, dragElement);
   }
@@ -110,7 +126,7 @@ function mouseOutHandler(event, element) {
 }
 
 function mouseOverHandler(event, element) {
-  const { dragElement } = globalThis;
+  const dragElement = getDragElement();
 
   if (dragElement !== null) {
     const dropElement = this, ///
@@ -120,9 +136,7 @@ function mouseOverHandler(event, element) {
       return;
     }
 
-    Object.assign(globalThis, {
-      dropElement
-    });
+    setDropElement(dropElement);
 
     this.dragOver(event, element, dragElement);
   }
