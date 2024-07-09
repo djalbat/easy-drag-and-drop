@@ -99,6 +99,8 @@ function mouseOutHandler(event, element) {
   if (dragElement !== null) {
     const dropElement = null; ///
 
+    console.log("Setting the drop element to null...")
+
     Object.assign(globalThis, {
       dropElement
     });
