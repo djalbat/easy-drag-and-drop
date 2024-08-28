@@ -42,6 +42,7 @@ function enableDrag() {
   const timeout = null,
         topOffset = null,
         leftOffset = null,
+        dragEnabled = true,
         startMouseTop = null,
         startMouseLeft = null;
 
@@ -51,12 +52,19 @@ function enableDrag() {
     timeout,
     topOffset,
     leftOffset,
+    dragEnabled,
     startMouseTop,
     startMouseLeft
   });
 }
 
 function disableDrag() {
+  const dragEnabled = false;
+
+  this.updateState({
+    dragEnabled
+  });
+
   this.offMouseDown(mouseDownHandler, this);
 }
 
@@ -100,6 +108,12 @@ function offCustomStartDrag(startDragCustomHandler, element) {
         customHandler = startDragCustomHandler;  ///
 
   this.offCustomEvent(customEventType, customHandler, element);
+}
+
+function isDragEnabled() {
+  const { dragEnabled = false } = this.getState();
+
+  return dragEnabled;
 }
 
 function isDragging() {
@@ -301,6 +315,7 @@ export default {
   offCustomStopDrag,
   onCustomStartDrag,
   offCustomStartDrag,
+  isDragEnabled,
   isDragging,
   startDrag,
   stopDrag,
