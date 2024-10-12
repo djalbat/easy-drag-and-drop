@@ -1,7 +1,7 @@
 "use strict";
 
 import { keyCodes } from "necessary" ;
-import { window, eventTypes, mouseButtons } from "easy";
+import { window, mouseButtons } from "easy";
 
 import { START_DRAGGING_DELAY } from "../constants";
 import { checkDragElementIgnoresDropElement } from "../utilities/reference";
@@ -9,7 +9,6 @@ import { mouseTopFromEvent, mouseLeftFromEvent } from "../utilities/event";
 import { DRAG_CUSTOM_EVENT_TYPE, STOP_DRAG_CUSTOM_EVENT_TYPE, START_DRAG_CUSTOM_EVENT_TYPE } from "../customEventTypes";
 
 const { ESCAPE_KEY_CODE } = keyCodes,
-      { BLUR_EVENT_TYPE } = eventTypes,
       { LEFT_MOUSE_BUTTON } = mouseButtons;
 
 function getDragElement() {
@@ -357,7 +356,7 @@ function mouseUpHandler(event, element) {
 
   event.stopPropagation();
 
-  window.offEvent(BLUR_EVENT_TYPE, mouseUpHandler, this);  ///
+  window.onBlur(mouseUpHandler, this);  ///
 
   window.offMouseUp(mouseUpHandler, this);
 }
@@ -378,7 +377,7 @@ function mouseDownHandler(event, element) {
 
   event.stopPropagation();
 
-  window.onEvent(BLUR_EVENT_TYPE, mouseUpHandler, this); ///
+  window.onBlur(mouseUpHandler, this); ///
 
   window.onMouseUp(mouseUpHandler, this);
 }

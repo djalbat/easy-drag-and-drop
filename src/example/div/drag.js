@@ -2,12 +2,9 @@
 
 import withStyle from "easy-with-style";
 
-import { eventTypes } from "easy";
 import { dragMixins, DragElement } from "../../index"; ///
 
 import style from "../style";
-
-const { DBLCLICK_EVENT_TYPE } = eventTypes;
 
 class DragDiv extends DragElement {
   doubleClickHandler = (event, element) => {
@@ -17,11 +14,11 @@ class DragDiv extends DragElement {
   didMount() {
     this.enableDrag();
 
-    this.onEvent(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
+    this.onDoubleClick(this.doubleClickHandler, this);
   }
 
   willUnmount() {
-    this.offEvent(DBLCLICK_EVENT_TYPE, this.doubleClickHandler, this);
+    this.offDoubleClick(this.doubleClickHandler, this);
 
     this.disableDrag();
   }
