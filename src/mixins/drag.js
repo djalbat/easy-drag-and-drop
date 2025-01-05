@@ -356,7 +356,7 @@ function mouseUpHandler(event, element) {
 
   event.stopPropagation();
 
-  window.onBlur(mouseUpHandler, this);  ///
+  window.offBlur(mouseUpHandler, this);  ///
 
   window.offMouseUp(mouseUpHandler, this);
 }
