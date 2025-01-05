@@ -161,6 +161,8 @@ function stopDrag(event, element, aborted) {
   const dropElement = getDropElement(),
         customEventType = STOP_DRAG_CUSTOM_EVENT_TYPE;
 
+  this.removeClass("dragging");
+
   window.offKeyDown(keyDownHandler, this);
 
   window.offMouseMove(mouseMoveHandler, this);
@@ -168,8 +170,6 @@ function stopDrag(event, element, aborted) {
   const done = () => {
     this.callCustomHandlersAsync(customEventType, event, element, dropElement, aborted, () => {
       resetDragElement();
-
-      this.removeClass("dragging");
     });
   }
 
