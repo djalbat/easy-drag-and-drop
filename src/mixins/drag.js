@@ -38,7 +38,7 @@ Object.assign(globalThis, {
 resetDragElement();
 
 function enableDrag() {
-  const timeout = null,
+  const interval = null,
         topOffset = null,
         leftOffset = null,
         dragEnabled = true,
@@ -48,7 +48,7 @@ function enableDrag() {
   this.onMouseDown(mouseDownHandler, this);
 
   this.updateState({
-    timeout,
+    interval,
     topOffset,
     leftOffset,
     dragEnabled,
@@ -216,44 +216,44 @@ function drag(event, element, mouseTop, mouseLeft) {
 }
 
 function startWaitingToDrag(event, element, mouseTop, mouseLeft) {
-  let timeout = this.getTimeout();
+  let interval = this.getInterval();
 
-  if (timeout === null) {
-    timeout = setTimeout(() => {
-      this.resetTimeout();
+  if (interval === null) {
+    interval = setTimeout(() => {
+      this.resetInterval();
 
       this.startDrag(event, element, mouseTop, mouseLeft);
     }, START_DRAGGING_DELAY);
 
-    this.updateTimeout(timeout);
+    this.updateInterval(interval);
   }
 }
 
 function stopWaitingToDrag() {
-  const timeout = this.getTimeout();
+  const interval = this.getInterval();
 
-  if (timeout !== null) {
-    clearTimeout(timeout);
+  if (interval !== null) {
+    clearTimeout(interval);
 
-    this.resetTimeout();
+    this.resetInterval();
   }
 }
 
-function getTimeout() {
-  const { timeout } = this.getState();
+function getInterval() {
+  const { interval } = this.getState();
 
-  return timeout;
+  return interval;
 }
 
-function resetTimeout() {
-  const timeout = null;
+function resetInterval() {
+  const interval = null;
 
-  this.updateTimeout(timeout);
+  this.updateInterval(interval);
 }
 
-function updateTimeout(timeout) {
+function updateInterval(interval) {
   this.updateState({
-    timeout
+    interval
   });
 }
 
@@ -321,9 +321,9 @@ export default {
   drag,
   startWaitingToDrag,
   stopWaitingToDrag,
-  getTimeout,
-  resetTimeout,
-  updateTimeout,
+  getInterval,
+  resetInterval,
+  updateInterval,
   getTopOffset,
   getLeftOffset,
   getStartMouseTop,
